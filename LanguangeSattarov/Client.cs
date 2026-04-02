@@ -59,7 +59,7 @@ namespace LanguangeSattarov
                     return "нет";
                 }
                 else
-                {
+                { 
                     DateTime startTime = LastVisit.StartTime;
                     return startTime.ToString("d");
                 }
