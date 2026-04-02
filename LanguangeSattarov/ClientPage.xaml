@@ -1,0 +1,144 @@
+﻿<Page x:Class="LanguangeSattarov.ClientPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:LanguangeSattarov"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="ClientPage" FontFamily="Comic Sans MS">
+
+    <Grid>
+
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <WrapPanel Orientation="Horizontal">
+            <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Left">
+                <TextBlock Text="Поиск" TextAlignment="Right" Width="80" FontSize="15"></TextBlock>
+                <TextBox Name="TBoxSearch" TextChanged="TBoxSearch_TextChanged" Width="250" FontSize="15"></TextBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+            <TextBlock Text="Пол:" TextAlignment="Center" Width="80" FontSize="15"></TextBlock>
+                <ComboBox Name="ComboGender" SelectionChanged="ComboGender_SelectionChanged" FontSize="15" Width="150" >
+                    <TextBlock>Все</TextBlock>
+                    <TextBlock>мужчина</TextBlock>
+                    <TextBlock>женщина</TextBlock>
+                </ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="10">
+                <TextBlock Text="Сортировка" FontSize="15"></TextBlock>
+                <ComboBox Name="ComboSort" SelectionChanged="ComboSort_SelectionChanged" FontSize="15" Width="150" Height="25">
+                    <TextBlock>нет</TextBlock>
+                    <TextBlock>по фамилии от А до Я</TextBlock>
+                    <TextBlock>по дате последнего посещения</TextBlock>
+                    <TextBlock>по количеству посещений</TextBlock>
+                </ComboBox>
+                <Button Content="Добавить клиента" Name="AddButton" Width="180" FontSize="15" Click="AddButton_Click" Margin="5,0,0,0" ></Button>
+            </StackPanel>
+
+        </WrapPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+            <TextBlock Name="TBAllRecords" FontSize="20" Height="25"></TextBlock>
+            <TextBlock Name="TBRecap" Text="Вывод по" FontSize="20" Height="25"></TextBlock>
+            <ComboBox Name="ComboPageCount" SelectionChanged="ComboPageCount_SelectionChanged" FontSize="15" Width="100" Height="25">
+                <TextBlock>1O</TextBlock>
+                <TextBlock>50</TextBlock>
+                <TextBlock>200</TextBlock>
+                <TextBlock>Все</TextBlock>
+               </ComboBox>
+            <Button Name="LeftDirButton" Content="&lt;" Width="25" Height="25" Click="LeftDirButton_Click"></Button>
+            <ListBox FontSize="20" Name="PageListBox" MouseUp="PageListBox_MouseUp">
+                <ListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal"/>
+                    </ItemsPanelTemplate>
+                </ListBox.ItemsPanel>
+            </ListBox>
+            <Button Name="RightDirButton" Content="&gt;" Width="25" Height="25" Click="RightDirButton_Click"></Button>
+            
+        </StackPanel>
+
+        <ListView Name="ClientListView" Grid.Row="2">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="*"/>
+
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Image Width="155" Grid.Column="0" Grid.RowSpan="5" Stretch="Uniform" HorizontalAlignment="Center">
+                            <Image.Source>
+                                <Binding Path="PhotoPath">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>
+                                            res/picture.png
+                                        </ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+                        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="ID:" FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding ID}" FontSize="16"></TextBlock>
+                            <TextBlock Text=" "></TextBlock>
+                            <TextBlock Text="{Binding FirstName }" FontSize="16"></TextBlock>
+                            <TextBlock Text=" "></TextBlock>
+                            <TextBlock Text="{Binding LastName }" FontSize="16"></TextBlock>
+                            <TextBlock Text=" "></TextBlock>
+                            <TextBlock Text="{Binding Patronymic }" FontSize="16"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Пол: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding GenderName}" FontSize="16"></TextBlock>
+                            <TextBlock Text=" Дата рождения: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding BirthdayString}" FontSize="16"></TextBlock>
+                          
+                        </StackPanel>
+                        <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Телефон: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding Phone}" FontSize="16"></TextBlock>
+                            <TextBlock Text=" e-mail: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding Email}" FontSize="16"></TextBlock>
+
+                        </StackPanel>
+                        <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Дата регистрации: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding RegistrationDateString}" FontSize="16"></TextBlock>
+
+                        </StackPanel>
+                        <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                            <TextBlock Text="Дата последнего посещения: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding LastVisitDate}" FontSize="16"></TextBlock>
+                            <TextBlock Text=" Кол-во посещения: " FontSize="16"></TextBlock>
+                            <TextBlock Text="{Binding VisitCount}" FontSize="16"></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Row="0" Grid.Column="2" Grid.RowSpan="5" VerticalAlignment="Center" HorizontalAlignment="Center" >
+                            <Button Name="BtnDelete" Content="Удалить" FontSize="16" Click="BtnDelete_Click_1"/>
+                            <Button Name="BtnEdit" Content="Редактировать" FontSize="16" Click="BtnEdit_Click_1"/>
+
+                        </StackPanel>
+                        
+                      
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+</Page>
